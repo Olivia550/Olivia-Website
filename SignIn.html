@@ -65,44 +65,50 @@ Parse.initialize("pfMVcVpgR4VZ1EXZpmAQINCKW69g1F7MAtYus8mL", "NPlBKDY7pAYK681YCc
 
   var Email= $("#inputEmail3").val();
   var PasswordGiven= $("#inputPassword3").val();
-  var PasswordProper= window.localStorage.getItem(Email);
-  if(PasswordProper != PasswordGiven) {
-     $('#WrongEmailOrPassword').text("Wrong email or password");
-  }
- else{
-  window.location.href = "HomeworkHelp.html";
- }
+  Parse.User.logIn(Email, PasswordGiven, {
+    success: function(user){
+      window.location.href = "HomeworkHelp.html";
+    },
+    error: function(user,error){
+      $('#WrongEmailOrPassword').text("Wrong email or password");
+    }
+  });
+ //  success: 
+ //  var PasswordProper= window.localStorage.getItem(Email);
+ //  if(PasswordProper != PasswordGiven) {
 
-    
+ //     $('#WrongEmailOrPassword').text("Wrong email or password");
+ //  }
+ // else{
+ //  window.location.href = "HomeworkHelp.html";
+ // }
 
   });
 
 
-var user = new Parse.User();
-   user.set("username", "test");
-  user.set("password", "test");
-  user.set("email", "test@gmail.com");
-  // user.set("username", $("#inputEmail3").val());
-  // user.set("password", $("#inputPassword3").val());
-  // user.set("email", $("#inputEmail3").val());
-  user.signUp(null, {
-  success: function(user) {
-    // Hooray! Let them use the app now.
-  },
-  error: function(user, error) {
-    // Show the error message somewhere and let the user try again.
-    alert("Error: " + error.code + " " + error.message);
-  }
-});
+// var user = new Parse.User();
+//    user.set("username", "test");
+//   user.set("password", "test");
+//   user.set("email", "test@gmail.com");
+//   // user.set("username", $("#inputEmail3").val());
+//   // user.set("password", $("#inputPassword3").val());
+//   // user.set("email", $("#inputEmail3").val());
+//   user.signUp(null, {
+//   success: function(user) {
+//     // Hooray! Let them use the app now.
+//   },
+//   error: function(user, error) {
+//     // Show the error message somewhere and let the user try again.
+//     alert("Error: " + error.code + " " + error.message);
+//   }
+// });
 
 $("#SignUp").click(function(event){
+  event.preventDefault();
   var user = new Parse.User();
-   user.set("username", "test");
-  user.set("password", "test");
-  user.set("email", "test");
-  // user.set("username", $("#inputEmail3").val());
-  // user.set("password", $("#inputPassword3").val());
-  // user.set("email", $("#inputEmail3").val());
+  user.set("username", $("#inputEmail3").val());
+  user.set("password", $("#inputPassword3").val());
+  user.set("email", $("#inputEmail3").val());
   user.signUp(null, {
   success: function(user) {
     // Hooray! Let them use the app now.
