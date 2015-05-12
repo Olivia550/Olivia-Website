@@ -2,6 +2,7 @@
 <html lang= "en">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <script src="http://www.parsecdn.com/js/parse-1.4.2.min.js"></script>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <script type="text/javascript" src="js/jquery.js"> </script>
 </head>
@@ -37,9 +38,21 @@
               </div>
     </div>
   </form>
-  <script>
-  // var email= "olivia@danners.org";
+  <script type = "text/javascript">
+Parse.initialize("pfMVcVpgR4VZ1EXZpmAQINCKW69g1F7MAtYus8mL", "NPlBKDY7pAYK681YCcZJ9gcrjLKu5yRHEpyTaQUG"); // var email= "olivia@danners.org";
   // var password= "Danner";
+
+
+    var TestObject = Parse.Object.extend("TestObject");
+    var testObject = new TestObject();
+      testObject.save({foo: "bar"}, {
+      success: function(object) {
+        $(".success").show();
+      },
+      error: function(model, error) {
+        $(".error").show();
+      }
+    });
 
 // Things to fix up:
 // 1) When you hit "Sign Up", check to make sure there's no account with that email yet (i.e. window.localStorage.getItem(emailPutIn) === null)
@@ -63,17 +76,52 @@
     
 
   });
+
+
+var user = new Parse.User();
+   user.set("username", "test");
+  user.set("password", "test");
+  user.set("email", "test@gmail.com");
+  // user.set("username", $("#inputEmail3").val());
+  // user.set("password", $("#inputPassword3").val());
+  // user.set("email", $("#inputEmail3").val());
+  user.signUp(null, {
+  success: function(user) {
+    // Hooray! Let them use the app now.
+  },
+  error: function(user, error) {
+    // Show the error message somewhere and let the user try again.
+    alert("Error: " + error.code + " " + error.message);
+  }
+});
+
 $("#SignUp").click(function(event){
-    var emailPutIn = $("#inputEmail3").val();
-    var passwordPutIn = $("#inputPassword3").val();
-    if(window.localStorage.getItem(emailPutIn) != null)  {
-      $('#RepeatEmailOrPassword').text("Your Email or your Password have allready been used by someone else:(");
-    }
-    else{
-     window.localStorage.setItem(emailPutIn,passwordPutIn); 
-    }
+  var user = new Parse.User();
+   user.set("username", "test");
+  user.set("password", "test");
+  user.set("email", "test");
+  // user.set("username", $("#inputEmail3").val());
+  // user.set("password", $("#inputPassword3").val());
+  // user.set("email", $("#inputEmail3").val());
+  user.signUp(null, {
+  success: function(user) {
+    // Hooray! Let them use the app now.
+  },
+  error: function(user, error) {
+    // Show the error message somewhere and let the user try again.
+    alert("Error: " + error.code + " " + error.message);
+  }
+});
+  
     
-    
+    // var emailPutIn = $("#inputEmail3").val();
+    // var passwordPutIn = $("#inputPassword3").val();
+    // if(window.localStorage.getItem(emailPutIn) != null)  {
+    //   $('#RepeatEmailOrPassword').text("Your Email or your Password have allready been used by someone else:(");
+    // }
+    // else{
+    //  window.localStorage.setItem(emailPutIn,passwordPutIn); 
+    // }  
 
 });
 </script>
